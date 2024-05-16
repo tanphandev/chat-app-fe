@@ -1,4 +1,6 @@
 import { useChatContext } from "@/contexts/chat.context";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { AvatarImage } from "@radix-ui/react-avatar";
 
 function MessageItem({ message, senderId }: { message: string; senderId: string }) {
   const { userInCurrentRoom } = useChatContext();
@@ -7,22 +9,30 @@ function MessageItem({ message, senderId }: { message: string; senderId: string 
     case myId:
       return <MyMessage message={message} />;
     default:
-      return <MessageOfOrther message={message} />;
+      return <MessageOfOrther message={message} senderId={senderId} />;
   }
 }
 
 const MyMessage = ({ message }: { message: string }) => {
   return (
-    <div className="flex justify-end mr-5 my-2">
-      <div className="py-2 px-3 rounded-full bg-[#0084ff] text-white text-sm">{message}</div>
+    <div className="flex justify-end mx-5 my-2">
+      <div className="py-2 px-3 rounded-[18px] bg-[#0084ff] text-white text-sm">{message}</div>
     </div>
   );
 };
 
-const MessageOfOrther = ({ message }: { message: string }) => {
+const MessageOfOrther = ({ message, senderId }: { message: string; senderId: string }) => {
+  const { userInCurrentRoom } = useChatContext();
+  console.log("userInCurrentRoom", userInCurrentRoom);
   return (
-    <div className="flex justify-start ml-8 my-2">
-      <div className="py-2 px-3 rounded-full bg-[#E4E6EB] text-sm">{message}</div>
+    <div className="flex justify-start items-end mx-5 my-2 gap-1">
+      <Avatar className="w-7 h-7">
+        <AvatarImage src="png" alt="@shadcn" />
+        <AvatarFallback>
+          {userInCurrentRoom.find((user) => user?.id === senderId)?.name?.[0]?.toUpperCase()}
+        </AvatarFallback>
+      </Avatar>
+      <div className="py-2 px-3 rounded-[18px] bg-[#E4E6EB] text-sm">{message}</div>
     </div>
   );
 };

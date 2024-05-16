@@ -8,7 +8,7 @@ function Sidebar() {
   const { rooms } = useChatContext();
   console.log("rooms", rooms);
   return (
-    <div className="pt-5 px-4 w-[360px] h-full">
+    <div className="pt-5 px-4 w-[360px] h-[calc(100vh-64px)] flex flex-col">
       <div>
         <div className="text-2xl font-bold">Chats</div>
         <div className="flex text-base p-[10px] rounded-full bg-[#f0f2f5] mb-2">
@@ -16,12 +16,7 @@ function Sidebar() {
           <input className="font-semibold bg-transparent outline-none" type="text" placeholder="Search Messenger" />
         </div>
       </div>
-      <div
-        className="overflow-y-scroll"
-        style={{
-          height: `calc(100% - 60px - 200px)px`
-        }}
-      >
+      <div className="overflow-y-scroll flex-1">
         {rooms?.map((room: any, index) => (
           <ChannelItem key={index} room={room} />
         ))}

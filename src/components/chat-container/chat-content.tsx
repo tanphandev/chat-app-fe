@@ -66,8 +66,8 @@ function ChatContent() {
       <div className="h-[64px] px-4 flex items-center justify-between bg-white shadow-md border-b sticky top-0 left-0 right-0">
         <div className="flex gap-2 justify-center items-center">
           <Image src={avatar} alt="avatar" width={40} height={40} className="rounded-full mr-2" />
-          <div className="flex flex-col justify-center items-center">
-            <h3 className="text-lg font-bold">Tanphandev</h3>
+          <div className="flex flex-col justify-center items-start">
+            <h3 className="text-lg font-bold">{roomSelected?.name}</h3>
             <p className="text-sm opacity-50">Active 9m ago</p>
           </div>
         </div>
