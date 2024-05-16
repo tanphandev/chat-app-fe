@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useChatContext } from "@/contexts/chat.context";
 function Sidebar() {
   const { rooms } = useChatContext();
+  console.log("rooms", rooms);
   return (
     <div className="pt-5 px-4 w-[360px] h-full">
       <div>

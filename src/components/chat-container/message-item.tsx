@@ -21,8 +21,8 @@ const MyMessage = ({ message }: { message: string }) => {
 
 const MessageOfOrther = ({ message }: { message: string }) => {
   return (
-    <div className="flex justify-end mr-5 my-2">
-      <div className="py-2 px-3 rounded-full bg-[#0084ff] text-white text-sm">{message}</div>
+    <div className="flex justify-start ml-8 my-2">
+      <div className="py-2 px-3 rounded-full bg-[#E4E6EB] text-sm">{message}</div>
     </div>
   );
 };

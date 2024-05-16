@@ -5,6 +5,8 @@ import * as Ably from "ably";
 import ChatContainer from "@/components/chat-container/chat-container";
 import { useEffect, useMemo } from "react";
 import { useChatContext } from "@/contexts/chat.context";
+import { getRoomByUserId } from "@/services/room.service";
+import { API_ROUTES } from "@/configs/api-routes";
 
 export default function Home() {
   const { rooms, setRooms } = useChatContext();
@@ -12,7 +14,7 @@ export default function Home() {
   const client = useMemo(() => {
     return new Ably.Realtime({
       // TODO: Change endpoint to your own server to generate token request
-      authUrl: "http://localhost:4000/ably/auth"
+      authUrl: API_ROUTES.createAblyRequestToken
     });
   }, []);
 
@@ -34,11 +36,10 @@ export default function Home() {
     const fetchRoomByUserId = async () => {
       try {
         const userId = typeUserId();
-        const res = await fetch(`http://localhost:4000/room/user/${userId}`);
-        const data = await res.json();
+        const data = await getRoomByUserId(userId!);
         setRooms(data);
       } catch (error) {
-        console.error(error);
+        console.log("[apiService] getRoomsByUserId error: ", error);
       }
     };
 

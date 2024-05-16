@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import MessageItem from "./message-item";
 import { useChannel } from "ably/react";
 import { useChatContext } from "@/contexts/chat.context";
+import { API_ROUTES } from "@/configs/api-routes";
 function ChatContent() {
   const chatContentRef = useRef<HTMLDivElement>(null);
 
@@ -32,7 +33,7 @@ function ChatContent() {
         //   body: e.target.value,
         //   type: "text"
         // });
-        fetch(`http://localhost:4000/message`, {
+        fetch(API_ROUTES.createNewMessage, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -58,6 +59,8 @@ function ChatContent() {
     });
   }, [messages]);
 
+  console.log("message", messages);
+
   return (
     <div className="flex flex-col justify-between flex-1 border-x-2 h-[calc(100vh-64px)]">
       <div className="h-[64px] px-4 flex items-center justify-between bg-white shadow-md border-b sticky top-0 left-0 right-0">
@@ -76,7 +79,7 @@ function ChatContent() {
       </div>
       <div className="flex-1 overflow-y-scroll" ref={chatContentRef}>
         {messages?.map((message, index) => (
-          <MessageItem key={index} message={message?.body} />
+          <MessageItem key={index} message={message?.body} senderId={message?.senderId} />
         ))}
       </div>
       <div className="flex gap-3 items-center justify-between h-[60px] px-2">
