@@ -23,14 +23,12 @@ const MyMessage = ({ message }: { message: string }) => {
 
 const MessageOfOrther = ({ message, senderId }: { message: string; senderId: string }) => {
   const { userInCurrentRoom } = useChatContext();
-  console.log("userInCurrentRoom", userInCurrentRoom);
+  const currentUser = userInCurrentRoom.find((user) => user?.id === senderId);
   return (
     <div className="flex justify-start items-end mx-5 my-2 gap-1">
       <Avatar className="w-7 h-7">
-        <AvatarImage src="png" alt="@shadcn" />
-        <AvatarFallback>
-          {userInCurrentRoom.find((user) => user?.id === senderId)?.name?.[0]?.toUpperCase()}
-        </AvatarFallback>
+        <AvatarImage src={currentUser?.avtar} alt="@shadcn" />
+        <AvatarFallback>{currentUser?.name?.[0]?.toUpperCase()}</AvatarFallback>
       </Avatar>
       <div className="py-2 px-3 rounded-[18px] bg-[#E4E6EB] text-sm">{message}</div>
     </div>
